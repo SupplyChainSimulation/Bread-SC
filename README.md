@@ -1,12 +1,18 @@
 # Optimizing inventory in a perishable bread supply chain
 
-A bakery makes bread from flour, sugar and yeast. Two distributors take the loaves to five shops, where customers buy them. A loaf can be sold for only 5 days after it was made. A shop that keeps too few loaves turns customers away, and a site that keeps too many throws loaves away when they expire. Now and then the bakery stops for 2 days, after an equipment fault or a strike.
+## Introduction
 
-This repository is our optimization study of that supply chain. We ask how much inventory each site should keep to make the highest mean network profit, and whether the answer changes when the bakery is disrupted. We simulate the supply chain with [SupplyNetPy](https://github.com/SupplyChainSimulation/SupplyNetPy) 0.5.1, and a genetic algorithm searches the values of the replenishment policies with the simulation as a black box.
+This repository holds a simulation-based optimization study of a bread supply chain, which we call the Bread SC. The study asks how much inventory each site (the bakery, a distributor or a shop) should keep to make the highest mean network profit, and whether the answer changes when the bakery is now and then disrupted and stops for 2 days.
+
+Inventory is hard to set well for bread. Bread is perishable, so a site that keeps too much loses loaves when they expire, and a site that keeps too little turns customers away. The sites also depend on each other. A simulation shows how well one choice of inventory settings works, but it does not say which choice is best, so we search for the best one.
+
+We simulate the supply chain with [SupplyNetPy](https://github.com/SupplyChainSimulation/SupplyNetPy) 0.5.1, a Python library for supply chain simulation. A genetic algorithm searches for the best values of the replenishment policies, the rules that tell each site when and how much to order. It tries many candidate settings, keeps the best and changes them to make new ones. It treats the simulation as a black box, so it sees only the results of the runs and not the model inside. The search method is not part of SupplyNetPy, so the study is also a worked example of how to connect an outside search method to a SupplyNetPy model, with every step repeatable from the scripts here.
 
 We have finished the model, its checks, the pilot runs, the search and the checks after it. We will add an archived release.
 
 ## The bread supply chain
+
+A bakery makes bread from flour, sugar and yeast. Two distributors take the loaves to five shops, where customers buy them. A loaf can be sold for only 5 days after it was made. Now and then the bakery stops for 2 days, after an equipment fault or a strike.
 
 ![The bread supply chain. Three raw-material suppliers, the bakery, two distributors and five shops, each shop with its own customers](optimization/results/network_schematic.png)
 
